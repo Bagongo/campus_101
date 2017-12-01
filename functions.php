@@ -10,6 +10,7 @@
 
 	function university_features()
 	{
+		//dynamic page titling...
 		add_theme_support("title-tag");
 	}
 
