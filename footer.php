@@ -13,12 +13,12 @@
           <div class="site-footer__col-two">
             <h3 class="headline headline--small">Explore</h3>
             <nav class="nav-list">
-              <ul>
-                <li><a href="<?php echo(site_url("/about")) ?>">About Us</a></li>
-                <li><a href="#">Programs</a></li>
-                <li><a href="#">Events</a></li>
-                <li><a href="#">Campuses</a></li>
-              </ul>
+				<ul>
+	                <li><a href="<?php echo(site_url("/about")) ?>">About Us</a></li>
+	                <li><a href="#">Programs</a></li>
+	                <li><a href="#">Events</a></li>
+	                <li><a href="#">Campuses</a></li>
+				</ul>
             </nav>
           </div>
 
@@ -29,7 +29,7 @@
                 <li><a href="#">Legal</a></li>
                 <li><a href="<?php echo(site_url("/privacy")) ?>">Privacy</a></li>
                 <li><a href="#">Careers</a></li>
-              </ul>
+              </ul> 
             </nav>
           </div>
         </div>

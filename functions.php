@@ -10,6 +10,9 @@
 
 	function university_features()
 	{
+		//register menus to be edited in admin interface and used in html pages
+		//register_nav_menu("headerMenuLocation", "Header menu location");
+		
 		//dynamic page titling...
 		add_theme_support("title-tag");
 	}
