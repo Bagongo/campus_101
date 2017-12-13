@@ -20,7 +20,7 @@
           	<?php /*wp_nav_menu(array("theme_location" => "headerMenuLocation")) */?> 
             <li <?php if(is_page("about") or wp_get_post_parent_id(0) == 23) echo "class='current-menu-item'" ?>><a href="<?php echo(site_url("/about")) ?>">About</a></li>
             <li><a href="#">Programs</a></li>
-            <li><a href="#">Events</a></li>
+            <li <?php if(get_post_type() == "event") echo "class='current-menu-item'"?>><a href="<?php echo get_post_type_archive_link('event') ?>">Events</a></li>
             <li><a href="#">Campuses</a></li>
             <li <?php if(get_post_type() == "post") echo "class='current-menu-item'"?>><a href="<?php echo site_url("/blog") ?>">Blog</a></li>
           </ul>
