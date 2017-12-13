@@ -26,7 +26,8 @@
                                 "meta_query" => array(array("key" => "event_date", "compare" => ">=", "value" => $currentDay), "type" => "numeric")
                               ));
 
-            while($homepageEvents->have_posts()) : $homepageEvents->the_post();           
+            while($homepageEvents->have_posts()) : 
+            $homepageEvents->the_post();           
         ?>
 
           <div class="event-summary">
