@@ -26,29 +26,14 @@
                                 "meta_query" => array(array("key" => "event_date", "compare" => ">=", "value" => $currentDay), "type" => "numeric")
                               ));
 
-            while($homepageEvents->have_posts()) : 
-            $homepageEvents->the_post();           
+            while($homepageEvents->have_posts())
+            { 
+              $homepageEvents->the_post();
+              // the two arguments combined form the name (with a dash '-' in between) of the file that will get loaded 
+              get_template_part("template-parts/content", "event");           
+            } 
+
         ?>
-
-          <div class="event-summary">
-            <a class="event-summary__date t-center" href="">
-              <span class="event-summary__month"><?php 
-                $eventDate = new DateTime(get_field("event_date"));
-                echo $eventDate->format('M');
-               ?></span>
-              <span class="event-summary__day"><?php echo $eventDate->format('d') ?></span>  
-            </a>
-            <div class="event-summary__content">
-              <h5 class="event-summary__title headline headline--tiny"><a href="<?php the_permalink() ?>"><?php the_title(); ?></a></h5>
-              <p><?php if(has_excerpt()) 
-                            echo get_the_excerpt();
-                        else echo wp_trim_words(get_the_content(), 15); ?> 
-                <a href="<?php the_permalink() ?>" class="nu gray">Learn more</a>
-              </p>
-            </div>
-          </div>
-
-        <?php endwhile ?>
         
         <p class="t-center no-margin"><a href="<?php echo get_post_type_archive_link("event"); ?>" class="btn btn--blue">View All Events</a></p>
 
