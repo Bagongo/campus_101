@@ -26,16 +26,30 @@
                                 "meta_query" => array(array("key" => "event_date", "compare" => ">=", "value" => $currentDay), "type" => "numeric")
                               ));
 
-            while($homepageEvents->have_posts())
-            { 
-              $homepageEvents->the_post();
-              // the two arguments combined form the name (with a dash '-' in between) of the file that will get loaded 
-              get_template_part("template-parts/content", "event");           
-            } 
+            if(!$homepageEvents->have_posts())
+            {
+              echo "<h3>No upcoming events at the moment...</h3>";
+            ?>
+            
+            <p><b>Wanna see some events you missed?</b><a href="<?php echo site_url("/past-events") ?>"> >> Go to past events...</a></p>
+
+            <?php 
+
+            }
+            else
+            {
+              while($homepageEvents->have_posts())
+              { 
+                $homepageEvents->the_post();
+                // the two arguments combined form the name (with a dash '-' in between) of the file that will get loaded 
+                get_template_part("template-parts/content", "event");           
+              } 
 
         ?>
         
         <p class="t-center no-margin"><a href="<?php echo get_post_type_archive_link("event"); ?>" class="btn btn--blue">View All Events</a></p>
+
+        <?php } ?>
 
       </div>
     </div>

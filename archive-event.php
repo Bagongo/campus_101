@@ -8,7 +8,11 @@
  ?>
 
 <div class="container container--narrow page-section">
-	<?php 
+	<?php
+
+		if(!have_posts())
+          echo "<h3>No upcoming events at the moment...</h3>";
+
 		while(have_posts())
 		{
 			the_post();
