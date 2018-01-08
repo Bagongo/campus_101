@@ -67,43 +67,8 @@
 			} 
 
 			wp_reset_postdata();		
-
-		  $currentDay = date("Ymd");
-		  $relatedEvents = new WP_Query(array(
-		                        "posts_per_page" => -1,
-		                        "post_type" => "event",
-		                        "meta_key" => "event_date",
-		                        "order_by" => "meta_value_num",
-		                        "order" => "DESC",
-		                        "meta_query" => array(
-		                        	array(
-		                        		"key" => "event_date", 
-		                        		"compare" => ">=",
-		                        		"value" => $currentDay,
-		                        		"type" => "numeric"
-		                        	), 
-			                        array(
-			                        	'key' => 'related_programs',
-			                        	'compare' => 'LIKE', 
-			                        	'value' => '"' . get_the_ID() . '"'
-			                        )
-		                      )
-		                    )
-		);
-
-		if($relatedEvents->have_posts())
-		{  
-
-		  	echo "<hr class='section-break'>";
-		  	echo "<h2 class='headline headline--medium'>Upcoming " . get_the_title() . " Events</h2>";
-
-		    while($relatedEvents->have_posts())
-		    { 
-			    $relatedEvents->the_post();
-			    get_template_part("template-parts/content-event");           			  
-			}
-		} 
-	?>
+		   
+			?>
 
 		</div>
 
