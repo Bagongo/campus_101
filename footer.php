@@ -59,7 +59,13 @@
       <i class="fa fa-window-close fa-3x search-overlay__close" aria-hidden="true"></i>
     </div>
   </div>
+
+  <div class="container">
+    <div id="search-overlay__result"></div>
+  </div>
 </div>
+
+
 
 
 <?php wp_footer() ?>

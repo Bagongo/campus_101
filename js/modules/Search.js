@@ -7,7 +7,10 @@ class Search
         this.closeButton = $(".search-overlay__close");
         this.searchOverlay = $(".search-overlay");
         this.searchField = $("#search-term");
+        this.resultField = $("#search-overlay__result");
         this.isOverlayOpen = false;
+        this.isSpinnerVisible = false;
+        this.previousSearch;
         this.events();
         this.typingTimer; 
     }
@@ -17,12 +20,12 @@ class Search
         this.openButton.on("click", this.openOverlay.bind(this));
         this.closeButton.on("click", this.closeOverlay.bind(this));
         $(document).on("keydown", this.keyPressDispatcher.bind(this));
-        this.searchField.on("keydown", this.typingLogic.bind(this));
+        this.searchField.on("keyup", this.typingLogic.bind(this));
     }
 
     keyPressDispatcher(e)
     {
-        if(e.keyCode == 83 && !this.isOverlayOpen)
+        if(e.keyCode == 83 && !this.isOverlayOpen && !$("input, textarea").is(":focus"))
             this.openOverlay();
 
         if(e.keyCode == 27 && this.isOverlayOpen)
@@ -45,8 +48,36 @@ class Search
 
     typingLogic(e)
     {
-        clearTimeout(this.typingTimer);
-        this.typingTimer = setTimeout(function(){console.log(e.keyCode)}, 750);
+        if(this.searchField.val() != this.previousSearch)
+        {
+            clearTimeout(this.typingTimer);
+
+            if(this.searchField.val())
+            {
+                if(!this.isSpinnerVisible)
+                {
+                    this.resultField.html("<div class='spinner-loader'></div>");
+                    this.isSpinnerVisible = true;
+                }
+                
+                this.typingTimer = setTimeout(this.getResults.bind(this), 2000);
+            }
+            else
+            {
+                this.resultField.html(" ");
+                this.isSpinnerVisible = false;
+            }
+        }
+
+        this.previousSearch = this.searchField.val();        
+    }
+
+    getResults()
+    {
+        
+        this.resultField.html("dummy result text");
+        this.isSpinnerVisible = false;
+
     }
 
 }
