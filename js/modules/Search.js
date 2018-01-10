@@ -74,10 +74,14 @@ class Search
 
     getResults()
     {
-        
-        this.resultField.html("dummy result text");
-        this.isSpinnerVisible = false;
-
+        $.getJSON("http://localhost:3000/wp-json/wp/v2/posts?search=" + this.searchField.val(), data => {
+            this.resultField.html(`
+                    <h2 class="search-overlay__section-title">General Information</h2>
+                    <ul class="link-list min-list">
+                        ${data.map(item => `<li><a href="${item.link}">${item.title.rendered}</a></li>`).join("")}
+                    </ul>
+                `);
+        })
     }
 
 }
