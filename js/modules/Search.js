@@ -74,13 +74,15 @@ class Search
 
     getResults()
     {
-        $.getJSON("http://localhost:3000/wp-json/wp/v2/posts?search=" + this.searchField.val(), data => {
+        $.getJSON(universityData.root_url + "/wp-json/wp/v2/posts?search=" + this.searchField.val(), data => {
             this.resultField.html(`
                     <h2 class="search-overlay__section-title">General Information</h2>
-                    <ul class="link-list min-list">
+                    ${data.length ? `<ul>` : `<p>No general information matches your search</p>`}
                         ${data.map(item => `<li><a href="${item.link}">${item.title.rendered}</a></li>`).join("")}
-                    </ul>
+                    ${data.length ? `</ul>` : ""}
                 `);
+
+            this.isSpinnerVisible = false;
         })
     }
 

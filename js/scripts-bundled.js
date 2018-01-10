@@ -10626,10 +10626,12 @@ var Search = function () {
         value: function getResults() {
             var _this = this;
 
-            _jquery2.default.getJSON("http://localhost:3000/wp-json/wp/v2/posts?search=" + this.searchField.val(), function (data) {
-                _this.resultField.html("\n                    <h2 class=\"search-overlay__section-title\">General Information</h2>\n                    <ul class=\"link-list min-list\">\n                        " + data.map(function (item) {
+            _jquery2.default.getJSON(universityData.root_url + "/wp-json/wp/v2/posts?search=" + this.searchField.val(), function (data) {
+                _this.resultField.html("\n                    <h2 class=\"search-overlay__section-title\">General Information</h2>\n                    " + (data.length ? "<ul>" : "<p>No general information matches your search</p>") + "\n                        " + data.map(function (item) {
                     return "<li><a href=\"" + item.link + "\">" + item.title.rendered + "</a></li>";
-                }).join("") + "\n                    </ul>\n                ");
+                }).join("") + "\n                    " + (data.length ? "</ul>" : "") + "\n                ");
+
+                _this.isSpinnerVisible = false;
             });
         }
     }]);
