@@ -10637,7 +10637,7 @@ var Search = function () {
                 var combinedResults = posts[0].concat(pages[0]);
                 // console.table(combinedResults);
                 _this2.resultField.html("\n                    <h2 class=\"search-overlay__section-title\">General Information</h2>\n                    " + (combinedResults.length ? "<ul>" : "<p>No general information matches your search</p>") + "\n                        " + combinedResults.map(function (item) {
-                    return "<li><a href=\"" + item.link + "\">" + item.title.rendered + "</a></li>";
+                    return "<li><a href=\"" + item.link + "\">" + item.title.rendered + "</a> " + (item.type == "post" ? "by " + item.authorName : '') + "</li>";
                 }).join("") + "\n                    " + (combinedResults.length ? "</ul>" : "") + "\n                ");
 
                 _this2.isSpinnerVisible = false;

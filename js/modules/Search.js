@@ -86,7 +86,7 @@ class Search
             this.resultField.html(`
                     <h2 class="search-overlay__section-title">General Information</h2>
                     ${combinedResults.length ? `<ul>` : `<p>No general information matches your search</p>`}
-                        ${combinedResults.map(item => `<li><a href="${item.link}">${item.title.rendered}</a></li>`).join("")}
+                        ${combinedResults.map(item => `<li><a href="${item.link}">${item.title.rendered}</a> ${item.type == "post" ? `by ${item.authorName}` : ''}</li>`).join("")}
                     ${combinedResults.length ? `</ul>` : ""}
                 `);
 
