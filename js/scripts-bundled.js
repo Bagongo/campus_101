@@ -10633,16 +10633,17 @@ var Search = function () {
         value: function getResults() {
             var _this2 = this;
 
-            _jquery2.default.when(_jquery2.default.getJSON(universityData.root_url + "/wp-json/wp/v2/posts?search=" + this.searchField.val()), _jquery2.default.getJSON(universityData.root_url + "/wp-json/wp/v2/pages?search=" + this.searchField.val())).then(function (posts, pages) {
-                var combinedResults = posts[0].concat(pages[0]);
-                // console.table(combinedResults);
-                _this2.resultField.html("\n                    <h2 class=\"search-overlay__section-title\">General Information</h2>\n                    " + (combinedResults.length ? "<ul>" : "<p>No general information matches your search</p>") + "\n                        " + combinedResults.map(function (item) {
-                    return "<li><a href=\"" + item.link + "\">" + item.title.rendered + "</a> " + (item.type == "post" ? "by " + item.authorName : '') + "</li>";
-                }).join("") + "\n                    " + (combinedResults.length ? "</ul>" : "") + "\n                ");
+            _jquery2.default.getJSON(universityData.root_url + "/wp-json/university/v1/search?term=" + this.searchField.val(), function (results) {
+                console.log(results);
+                _this2.resultField.html("\n                <div class=\"row\">\n                    <div class=\"one-third\">\n                        <h2 class=\"search-overlay__section-title\">General Information</h2>\n                        " + (results.generalInfo.length ? "<ul>" : "<p>No general information matches your search</p>") + "\n                            " + results.generalInfo.map(function (item) {
+                    return "<li><a href=\"" + item.permalink + "\">" + item.title + "</a> " + (item.postType == "post" ? "by " + item.authorName : '') + "</li>";
+                }).join("") + "\n                        " + (results.generalInfo.length ? "</ul>" : "") + "\n                    </div>\n                    <div class=\"one-third\">\n                        <h2 class=\"search-overlay__section-title\">Program(s)</h2>\n                        " + (results.programs.length ? "<ul>" : "<p>No programs matches your search. <a href=\"" + universityData.root_url + "/programs\">View all programs</a></p>") + "\n                            " + results.programs.map(function (item) {
+                    return "<li><a href=\"" + item.permalink + "\">" + item.title + "</a></li>";
+                }).join("") + "\n                        " + (results.programs.length ? "</ul>" : "") + "\n                        <h2 class=\"search-overlay__section-title\">Professor(s)</h2>\n                    </div>\n                    <div class=\"one-third\">\n                        <h2 class=\"search-overlay__section-title\">Campus(es)</h2>\n                        " + (results.campuses.length ? "<ul>" : "<p>No campuses matches your search. <a href=\"" + universityData.root_url + "/campuses\">View all campuses</a></p>") + "\n                            " + results.campuses.map(function (item) {
+                    return "<li><a href=\"" + item.permalink + "\">" + item.title + "</a></li>";
+                }).join("") + "\n                        " + (results.campuses.length ? "</ul>" : "") + "\n                        <h2 class=\"search-overlay__section-title\">Event(s)</h2>\n                    </div>\n                </div>\n            ");
 
                 _this2.isSpinnerVisible = false;
-            }, function () {
-                _this2.resultField.html("There was an error with the search");
             });
         }
     }, {

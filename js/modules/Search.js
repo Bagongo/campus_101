@@ -77,22 +77,34 @@ class Search
 
     getResults()
     {
-        $.when(
-            $.getJSON(universityData.root_url + "/wp-json/wp/v2/posts?search=" + this.searchField.val()),
-            $.getJSON(universityData.root_url + "/wp-json/wp/v2/pages?search=" + this.searchField.val())
-        ).then((posts, pages) => {
-            var combinedResults = posts[0].concat(pages[0]);
-            // console.table(combinedResults);
+        $.getJSON(universityData.root_url + "/wp-json/university/v1/search?term=" + this.searchField.val(), (results) => {
+            console.log(results);
             this.resultField.html(`
-                    <h2 class="search-overlay__section-title">General Information</h2>
-                    ${combinedResults.length ? `<ul>` : `<p>No general information matches your search</p>`}
-                        ${combinedResults.map(item => `<li><a href="${item.link}">${item.title.rendered}</a> ${item.type == "post" ? `by ${item.authorName}` : ''}</li>`).join("")}
-                    ${combinedResults.length ? `</ul>` : ""}
-                `);
+                <div class="row">
+                    <div class="one-third">
+                        <h2 class="search-overlay__section-title">General Information</h2>
+                        ${results.generalInfo.length ? `<ul>` : `<p>No general information matches your search</p>`}
+                            ${results.generalInfo.map(item => `<li><a href="${item.permalink}">${item.title}</a> ${item.postType == "post" ? `by ${item.authorName}` : ''}</li>`).join("")}
+                        ${results.generalInfo.length ? `</ul>` : ""}
+                    </div>
+                    <div class="one-third">
+                        <h2 class="search-overlay__section-title">Program(s)</h2>
+                        ${results.programs.length ? `<ul>` : `<p>No programs matches your search. <a href="${universityData.root_url}/programs">View all programs</a></p>`}
+                            ${results.programs.map(item => `<li><a href="${item.permalink}">${item.title}</a></li>`).join("")}
+                        ${results.programs.length ? `</ul>` : ""}
+                        <h2 class="search-overlay__section-title">Professor(s)</h2>
+                    </div>
+                    <div class="one-third">
+                        <h2 class="search-overlay__section-title">Campus(es)</h2>
+                        ${results.campuses.length ? `<ul>` : `<p>No campuses matches your search. <a href="${universityData.root_url}/campuses">View all campuses</a></p>`}
+                            ${results.campuses.map(item => `<li><a href="${item.permalink}">${item.title}</a></li>`).join("")}
+                        ${results.campuses.length ? `</ul>` : ""}
+                        <h2 class="search-overlay__section-title">Event(s)</h2>
+                    </div>
+                </div>
+            `);
 
             this.isSpinnerVisible = false;
-        }, () => {
-            this.resultField.html("There was an error with the search");
         });
     }
 
