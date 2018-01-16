@@ -10599,6 +10599,9 @@ var Search = function () {
                 return _this.searchField.focus();
             }, 1000);
             this.isOverlayOpen = true;
+
+            // prevents default behavior of 'a' elements........
+            return false;
         }
     }, {
         key: "closeOverlay",

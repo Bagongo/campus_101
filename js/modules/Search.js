@@ -40,6 +40,9 @@ class Search
         this.searchField.val("");
         setTimeout(() => this.searchField.focus(), 1000);
         this.isOverlayOpen = true;
+
+        // prevents default behavior of 'a' elements........
+        return false;
     }
 
     closeOverlay()
