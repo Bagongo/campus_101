@@ -115,4 +115,31 @@
 	<?php  
 	}
 
+	// Subscribers redirection to fronted after having logged in..
+	function redirectSubscriberToFrontend()
+	{
+		$ourCurrentUser = wp_get_current_user();
+
+		if(count($ourCurrentUser->roles) == 1 AND $ourCurrentUser->roles[0] == "subscriber")
+		{
+			wp_redirect(site_url("/"));
+			exit;
+		}
+	}
+
+	add_action("admin_init", "redirectSubscriberToFrontend");
+
+	//Hide admin bar to subscribers
+	function hideAdminBarToMinorRoles()
+	{
+		$ourCurrentUser = wp_get_current_user();
+
+		if(count($ourCurrentUser->roles) == 1 AND $ourCurrentUser->roles[0] == "subscriber")
+		{
+			show_admin_bar(false);
+		}
+	}
+
+	add_action("wp_loaded", "hideAdminBarToMinorRoles");
+
 
