@@ -10570,7 +10570,21 @@ var MyNotes = function () {
     }, {
         key: "deleteNote",
         value: function deleteNote() {
-            console.log("delete-note...");
+            _jquery2.default.ajax({
+                beforeSend: function beforeSend(xhr) {
+                    xhr.setRequestHeader("X-WP-Nonce", universityData.nonce);
+                },
+                url: universityData.root_url + "/wp-json/wp/v2/note/" + "117",
+                type: "DELETE",
+                success: function success(response) {
+                    console.log("delete callback!!!!");
+                    console.log(response);
+                },
+                error: function error(response) {
+                    console.log("failed delete.....");
+                    console.log(response);
+                }
+            });
         }
     }]);
 
