@@ -10565,9 +10565,11 @@ var MyNotes = function () {
     _createClass(MyNotes, [{
         key: "events",
         value: function events() {
-            (0, _jquery2.default)(".delete-note").on("click", this.deleteNote.bind(this));
-            (0, _jquery2.default)(".edit-note").on("click", this.editNote.bind(this));
-            (0, _jquery2.default)(".update-note").on("click", this.updateNote.bind(this));
+            // parent selector - event - children selector expression (for event to be listened on notes created after page load)....
+            (0, _jquery2.default)("#my-notes").on("click", ".delete-note", this.deleteNote.bind(this));
+            (0, _jquery2.default)("#my-notes").on("click", ".edit-note", this.editNote.bind(this));
+            (0, _jquery2.default)("#my-notes").on("click", ".update-note", this.updateNote.bind(this));
+            (0, _jquery2.default)(".submit-note").on("click", this.createNote.bind(this));
         }
     }, {
         key: "deleteNote",
@@ -10670,6 +10672,34 @@ var MyNotes = function () {
             } else {
                 this.makeNoteEditable(thisNote);
             }
+        }
+    }, {
+        key: "createNote",
+        value: function createNote() {
+            var newNote = {
+                title: (0, _jquery2.default)(".new-note-title").val(),
+                content: (0, _jquery2.default)(".new-note-body").val(),
+                status: "publish"
+            };
+
+            _jquery2.default.ajax({
+                beforeSend: function beforeSend(xhr) {
+                    xhr.setRequestHeader("X-WP-Nonce", universityData.nonce);
+                },
+                url: universityData.root_url + "/wp-json/wp/v2/note/",
+                type: "POST",
+                data: newNote,
+                success: function success(response) {
+                    (0, _jquery2.default)(".new-note-title, .new-note-body").val("");
+                    (0, _jquery2.default)("\n                    <li data-id=\"" + response.id + "\">\n                        <input readonly class=\"note-title-field\" value=\"" + response.title.raw + "\">\n                        <span class=\"edit-note\"><i class=\"fa fa-pencil\" aria-hidden=\"true\"></i>Edit</span>\n                        <span class=\"delete-note\"><i class=\"fa fa-trash-o\" aria-hidden=\"true\"></i>Delete</span>\n                        <textarea readonly class=\"note-body-field\">\n                            " + response.content.raw + "\n                        </textarea>\n                        <span class=\"update-note btn btn--blue btn--small\"><i class=\"fa fa-arrow-right\" aria-hidden=\"true\"></i> Save</span>\n                    </li>    \n                ").prependTo("#my-notes").hide().slideDown();
+                    console.log("delete callback!!!!");
+                    console.log(response);
+                },
+                error: function error(response) {
+                    console.log("failed update.....");
+                    console.log(response);
+                }
+            });
         }
     }]);
 
