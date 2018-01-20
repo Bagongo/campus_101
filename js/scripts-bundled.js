@@ -10692,7 +10692,7 @@ var MyNotes = function () {
                 success: function success(response) {
                     (0, _jquery2.default)(".new-note-title, .new-note-body").val("");
                     (0, _jquery2.default)("\n                    <li data-id=\"" + response.id + "\">\n                        <input readonly class=\"note-title-field\" value=\"" + response.title.raw + "\">\n                        <span class=\"edit-note\"><i class=\"fa fa-pencil\" aria-hidden=\"true\"></i>Edit</span>\n                        <span class=\"delete-note\"><i class=\"fa fa-trash-o\" aria-hidden=\"true\"></i>Delete</span>\n                        <textarea readonly class=\"note-body-field\">\n                            " + response.content.raw + "\n                        </textarea>\n                        <span class=\"update-note btn btn--blue btn--small\"><i class=\"fa fa-arrow-right\" aria-hidden=\"true\"></i> Save</span>\n                    </li>    \n                ").prependTo("#my-notes").hide().slideDown();
-                    console.log("delete callback!!!!");
+                    console.log("create callback!!!!");
                     console.log(response);
                 },
                 error: function error(response) {

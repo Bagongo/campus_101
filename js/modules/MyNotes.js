@@ -147,7 +147,7 @@ class MyNotes {
                         <span class="update-note btn btn--blue btn--small"><i class="fa fa-arrow-right" aria-hidden="true"></i> Save</span>
                     </li>    
                 `).prependTo("#my-notes").hide().slideDown();
-                console.log("delete callback!!!!");
+                console.log("create callback!!!!");
                 console.log(response);
             },
             error: (response) => {
