@@ -30,6 +30,9 @@ class MyNotes {
                 console.log("delete callback!!!!");
                 console.log(response);
                 thisNote.slideUp();
+
+                if(response.userNoteCount <= 4)
+                    $(".note-limit-message").removeClass("active");
             },
             error: (response) => {
                 console.log("failed delete.....");
@@ -56,7 +59,7 @@ class MyNotes {
             success: (response) => {
                 this.saveDataToNote(thisNote, updatedNote);
                 this.makeNoteReadonly(thisNote);
-                console.log("delete callback!!!!");
+                console.log("update note callback!!!!");
                 console.log(response);
             },
             error: (response) => {
@@ -151,6 +154,9 @@ class MyNotes {
                 console.log(response);
             },
             error: (response) => {
+                if(response.responeMessage = "You have reached note limit!")
+                    $(".note-limit-message").addClass("active");
+
                 console.log("failed creating note.....");
                 console.log(response);
             }

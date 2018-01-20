@@ -10586,6 +10586,8 @@ var MyNotes = function () {
                     console.log("delete callback!!!!");
                     console.log(response);
                     thisNote.slideUp();
+
+                    if (response.userNoteCount <= 4) (0, _jquery2.default)(".note-limit-message").removeClass("active");
                 },
                 error: function error(response) {
                     console.log("failed delete.....");
@@ -10614,7 +10616,7 @@ var MyNotes = function () {
                 success: function success(response) {
                     _this.saveDataToNote(thisNote, updatedNote);
                     _this.makeNoteReadonly(thisNote);
-                    console.log("delete callback!!!!");
+                    console.log("update note callback!!!!");
                     console.log(response);
                 },
                 error: function error(response) {
@@ -10696,6 +10698,8 @@ var MyNotes = function () {
                     console.log(response);
                 },
                 error: function error(response) {
+                    if (response.responeMessage = "You have reached note limit!") (0, _jquery2.default)(".note-limit-message").addClass("active");
+
                     console.log("failed creating note.....");
                     console.log(response);
                 }
