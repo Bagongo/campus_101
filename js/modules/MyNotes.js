@@ -151,7 +151,7 @@ class MyNotes {
                 console.log(response);
             },
             error: (response) => {
-                console.log("failed update.....");
+                console.log("failed creating note.....");
                 console.log(response);
             }
         });

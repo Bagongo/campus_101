@@ -10696,7 +10696,7 @@ var MyNotes = function () {
                     console.log(response);
                 },
                 error: function error(response) {
-                    console.log("failed update.....");
+                    console.log("failed creating note.....");
                     console.log(response);
                 }
             });
