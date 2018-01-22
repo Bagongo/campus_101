@@ -10521,20 +10521,40 @@ var Like = function () {
         }
     }, {
         key: "createLike",
-        value: function createLike() {
-            console.log("create like!!!!");
+        value: function createLike(currentLikeBox) {
+            var professorID = currentLikeBox.data("professor");
+            _jquery2.default.ajax({
+                url: universityData.root_url + "/wp-json/university/v1/manageLike/",
+                type: "POST",
+                data: { "professorID": professorID },
+                success: function success(response) {
+                    return console.log(response);
+                },
+                error: function error(response) {
+                    return console.log(response);
+                }
+            });
         }
     }, {
         key: "deleteLike",
-        value: function deleteLike() {
-            console.log("delete like!!!!!");
+        value: function deleteLike(currentLikeBox) {
+            _jquery2.default.ajax({
+                url: universityData.root_url + "/wp-json/university/v1/manageLike/",
+                type: "DELETE",
+                success: function success(response) {
+                    return console.log(response);
+                },
+                error: function error(response) {
+                    return console.log(response);
+                }
+            });
         }
     }, {
         key: "clickDispatcher",
         value: function clickDispatcher(e) {
             var currentLikeBox = (0, _jquery2.default)(e.target).closest('.like-box');
 
-            if (currentLikeBox.data("exists") == "yes") this.deleteLike();else this.createLike();
+            if (currentLikeBox.data("exists") == "yes") this.deleteLike(currentLikeBox);else this.createLike(currentLikeBox);
         }
     }]);
 

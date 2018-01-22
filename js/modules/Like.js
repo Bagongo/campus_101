@@ -11,17 +11,19 @@ class Like{
         $(".like-box").on("click", this.clickDispatcher.bind(this));
     }
 
-    createLike()
+    createLike(currentLikeBox)
     {
+        var professorID = currentLikeBox.data("professor");
         $.ajax({
-            url: universityData.root_url + "/wp-json/university/v1/manageLike/" ,
+            url: universityData.root_url + "/wp-json/university/v1/manageLike/",
             type: "POST",
+            data: {"professorID": professorID},
             success: (response) => console.log(response),
             error: (response) => console.log(response)
         });
     }
 
-    deleteLike()
+    deleteLike(currentLikeBox)
     {
         $.ajax({
             url: universityData.root_url + "/wp-json/university/v1/manageLike/" ,
@@ -36,9 +38,9 @@ class Like{
         var currentLikeBox = $(e.target).closest('.like-box');
 
         if(currentLikeBox.data("exists") == "yes")
-            this.deleteLike();
+            this.deleteLike(currentLikeBox);
         else
-            this.createLike();
+            this.createLike(currentLikeBox);
     }
 
 }
