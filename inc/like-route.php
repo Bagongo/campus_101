@@ -13,7 +13,6 @@ function universityLikeRoutes()
 		"methods" => "DELETE",
 		"callback" => deleteLike
 	));
-
 }
 
 function createLike($data)
@@ -56,7 +55,19 @@ function createLike($data)
 	}
 }
 
-function deleteLike()
+function deleteLike($data)
 {
-	return "deleting like...";
+	$likeID = sanitize_text_field($data["like"]);
+	
+	if(get_current_user_id() == get_post_field("post_author", $likeID) AND get_post_type($likeID) == "like")
+	{
+		wp_delete_post($likeID, true);
+		return "Like deleted";
+	}
+	else
+	{
+		die("You are not allowed to remove this like.....");
+	}
 }
+
+
