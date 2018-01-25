@@ -88,15 +88,37 @@
   </div>
 
   <div class="hero-slider">
-  <div class="hero-slider__slide" style="background-image: url(<?php echo get_theme_file_uri("/images/bus.jpg") ?>);">
-    <div class="hero-slider__interior container">
-      <div class="hero-slider__overlay">
-        <h2 class="headline headline--medium t-center">Free Transportation</h2>
-        <p class="t-center">All students have free unlimited bus fare.</p>
-        <p class="t-center no-margin"><a href="#" class="btn btn--blue">Learn more</a></p>
+
+    <?php 
+      $slides = new WP_Query(array(
+                    "posts_per_page" => 5,
+                    "post_type" => "slide",
+                  ));
+
+      while ($slides->have_posts())
+      {
+        $slides->the_post();
+
+        $bgImageURL = get_field("page_banner_background_image")["url"]; 
+        $pageLink = get_field("custom_link") ? site_url(get_field("custom_link")) : get_field("related_page");
+    ?>
+
+      <div class="hero-slider__slide" style="background-image: url(<?php echo $bgImageURL; ?>);">
+        <div class="hero-slider__interior container">
+          <div class="hero-slider__overlay">
+            <h2 class="headline headline--medium t-center"><?php echo the_title(); ?></h2>
+            <p class="t-center"><?php echo wp_trim_words(get_the_content(), 25); ?></p>
+            <p class="t-center no-margin"><a href="<?php echo $pageLink ?>" class="btn btn--blue">Learn more</a></p>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
+
+    <?php
+
+      }
+
+    ?>
+
 </div>
     
 
