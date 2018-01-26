@@ -6,8 +6,6 @@ that has an archive page e.g. 'campuses', 'programs', ecc...
 and substitutes the word with a link to the related archive.
 */
 
-
-
 // returns an associative array containing all custom post types in the db
 // with the archive name as key and the link to the archive as value
 // (excludes post types without archive page)
