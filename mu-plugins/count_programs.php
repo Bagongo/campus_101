@@ -5,7 +5,7 @@ Description: Dinamically outputs the current number of programs where mentioned 
 */
 
 
-add_shortcode("programsCounter", "countPrograms");
+add_shortcode("programCounter", "countPrograms");
 
 function countPrograms()
 {

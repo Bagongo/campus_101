@@ -90,6 +90,7 @@
   <div class="hero-slider">
 
     <?php 
+
       $slides = new WP_Query(array(
                     "posts_per_page" => 5,
                     "post_type" => "slide",
