@@ -1,5 +1,6 @@
 uploads/*
 upgrade/*
-
+plugins/*
+!plugins/customP*
 
 
