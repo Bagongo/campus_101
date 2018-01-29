@@ -45,7 +45,28 @@
 
 		<?php endif ?>  
 
-		  <div class="generic-content"><?php the_content() ?></div>
+		  <div class="generic-content">
+		  	<?php 
+
+				the_content();
+
+				if(returnPageKeyWord(get_the_content()))
+				{
+					$kWordVar = sanitize_text_field(get_query_var("pageKeyWord"));
+					$kWord = returnPageKeyWord(get_the_content());
+
+					if($kWordVar == $kWord) 
+						echo "<p>Great Job!!!</p>";	
+	  	 	?>
+
+		  	 	<form method="get">
+		  	 		<input placeholder="Type in the third word of the text..." name="pageKeyWord">
+		  	 		<button>Submit</button>
+		  	 	</form>
+
+	  	 	<?php } ?>
+	  	 	
+		  </div>
 
 		</div>
 
